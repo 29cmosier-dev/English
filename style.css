@@ -1,0 +1,450 @@
+:root {
+    color-scheme: dark; /* Explicitly declare dark scheme for OS preference */
+    --animation-duration: 0.3s;
+    --animation-timing: ease-out;
+    --transition-property: all var(--animation-duration) var(--animation-timing);
+
+    --background-color-grad1: #0f0f0f; /* Near Black (Main background color base) */
+    --background-color-grad2: #1c1c1c; /* Deep Gray (End of background gradient) */
+    --particle-color-grad1: #810b0ba1;
+    --particle-color-grad2: #e088168f;
+    /* --- Global Text & Icon Colors --- */
+    --navbar-icon-color: #f8fafc;        /* White/Off-white for contrast */
+    --navbar-text-color-hover: #ffffff; /* Pure white for high contrast hover */
+    --main-text-color: #f8fafc;         /* Keep general text light for readability */
+    /* --- Navbar colors (Solid background for stability and formality) --- */
+    --fake-navbar-bg-color: #2c2c2c;    /* Solid very dark gray for sticky nav */
+    --navbar-seperation-line: #555555;   /* A subtle divider line */
+    /*
+      Navbar links + logo colors - uses subtle linear gradients for definition.
+    */
+    --navbar-item-color-grad1: #2c2c2c; /* Dark gray base */
+    --navbar-item-color-grad2: #404040; /* Slightly lighter gray definition */
+    --navbar-item-color-hover-grad1: #4B2A57; /* Deep muted purple on hover */
+    --navbar-item-color-hover-grad2: #6A3E78; /* Slightly lighter purple on hover */
+    /* --- Footer colors --- */
+    --footer-bg-color: #2c2c2c;          /* Dark Gray for the footer */
+    --footer-seperation-line: #555555;   /* Subtle gray line */
+    /*
+      --- Main Content Colors (Cards/Boxes) ---
+      Purple is the primary brand/content color, suggesting innovation and prestige in a tech context.
+      These are linear gradients for clean UI separation.
+    */
+    --main-element-box-bg-color-grad1: #3b2a77AA; /* Top Left*/
+    --main-element-box-bg-color-grad2: #311e95AA; /* Bottom Right*/
+    --primary-accent-color: #410049;
+    --secondary-accent-color: #FFD524;
+    --action-link-color: #fab41d;
+    --action-link-text-color-hover: #222020; /* NEEDS TO CONTRAST AGANST "--action-link-color" */
+    /* --- Settings page styles --- */
+    --settings-dropdown-menu-bg-color: var(--main-element-box-bg-color-grad1); /* Matches main box style */
+    --settings-dropdown-menu-hover-option-color: #9370DB33; /* Purple with opacity for hover effect */
+}
+
+
+.card {
+    border-radius: 10px;
+    border-left: var(--primary-accent-color) solid 10px;
+    background: linear-gradient(to bottom right, var(--main-element-box-bg-color-grad1), var(--main-element-box-bg-color-grad2));
+    padding: 20px;
+    color: var(--main-text-color);
+    backdrop-filter: blur(15px); /* The key property for background blur */
+    -webkit-backdrop-filter: blur(15px); /* For older Safari support */
+}
+
+.card-plain {
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, var(--main-element-box-bg-color-grad1), var(--main-element-box-bg-color-grad2));
+    padding: 20px;
+    color: var(--main-text-color);
+    backdrop-filter: blur(5px); /* The key property for background blur */
+    -webkit-backdrop-filter: blur(5px); /* For older Safari support */
+}
+
+.card-plain-no-padding {
+    border-radius: 10px;
+    background: linear-gradient(to bottom right, var(--main-element-box-bg-color-grad1), var(--main-element-box-bg-color-grad2));
+    color: var(--main-text-color);
+}
+
+.action-link {
+    z-index: 3;
+    border-radius: 10px;
+    background-color: #00000000;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--action-link-color);
+    text-decoration: none;
+    border: 2px solid var(--action-link-color);
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+.action-link p, .action-link h3, .action-link h1{
+    transition: background-color 0.3s ease, color 0.3s ease, border-color 0.3s ease;
+}
+
+*, *:before, *:after {
+    box-sizing: border-box;
+}
+
+html, body {
+    margin: 0;
+    padding: 0;
+    height: 100%;
+}
+
+body {
+    font-family: 'Lato', sans-serif;
+    line-height: 1.6; /* Improves readability */
+    color: var(--main-text-color);
+    /* width and max-width are not needed here */
+    overflow-x: hidden; 
+}
+
+/* New CSS for the animated background overlay */
+.animated-background-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    z-index: 0; /* Place behind the #body content */
+    pointer-events: none; /* Allows clicks to pass through to elements beneath */
+}
+
+.animated-background-overlay span {
+    position: absolute;
+    display: block; /* Ensure it behaves as a block for correct positioning */
+    /* Use CSS variables to create different sizes and animation timings */
+    --i: 1; /* Default value, will be overridden by inline styles */
+    --size: calc(50px + var(--i) * 5px); 
+    width: var(--size);
+    height: var(--size);
+    filter: blur(5px); /* Adjust the pixel value for more or less blur */
+    background: linear-gradient(var(--particle-color-grad1), var(--particle-color-grad2));
+    animation: float-and-fade linear infinite; /* Removed duration from here to use individual calculation */
+    top: -100px; /* Start below the viewport */
+    border-radius: 50%; /* Make them circles/bubbles */
+    opacity: 0; /* Start invisible */
+
+    /* Randomize animation duration and delay */
+    animation-duration: calc(15s + var(--i) * 0.5s);
+    animation-delay: calc(var(--i) * -3s);
+}
+
+.animated-background-overlay .pos-1 { left: 5%; }
+.animated-background-overlay .pos-2 { left: 15%; }
+.animated-background-overlay .pos-3 { left: 25%; }
+.animated-background-overlay .pos-4 { left: 35%; }
+.animated-background-overlay .pos-5 { left: 45%; }
+.animated-background-overlay .pos-6 { left: 55%; }
+.animated-background-overlay .pos-7 { left: 65%; }
+.animated-background-overlay .pos-8 { left: 75%; }
+.animated-background-overlay .pos-9 { left: 85%; }
+.animated-background-overlay .pos-10 { left: 95%; }
+
+@keyframes float-and-fade {
+    0% {
+        transform: translateY(0,0) rotate(0deg);
+        opacity: 0;
+    }
+    10% {
+        opacity: 1;
+    }
+    90% {
+        opacity: 1;
+    }
+    100% {
+        transform: translate(var(--move-right), 150vh) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+/* Ensure 'main' within the body also grows to push the footer down */
+main {
+    flex-grow: 1; 
+    scroll-padding: 0;
+}
+  
+/* For all headings (H1, H2, H3, H4, H5, H6) */
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Rubik', sans-serif;
+    color: var(--main-header-color);
+}
+
+#navbar {
+    width: 100vw;
+    height: 4rem;
+    background: #00000050;
+    backdrop-filter: blur(5px);
+    display: flex; 
+    justify-content: space-between;
+    align-items: center;
+    position: fixed;
+    max-width: 100vw;
+    z-index: 99;
+}
+
+.navbar-list {
+    display: flex;
+    flex-direction: row;
+    justify-content: space-between;
+    list-style-type: none;
+    gap: 20px;
+    right: 0;
+    margin-right: 0.5rem;
+}
+
+.navbar-list li a {
+    padding: 1rem;
+    border-radius: 3rem;
+    background: #202020;
+}
+
+#navbar a {
+    text-decoration: none;
+    color: white;
+}
+
+.logo { /* Incudes logo and text */
+    height: 175%;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    justify-content: start;
+    padding-left: 5px;
+    background: #202020;
+    color: white;
+    text-decoration: none;
+    padding-right: 100px; 
+    font-size: 1.1rem;
+
+    /* Slant Effect */
+    clip-path: polygon(
+        0% 0%,       /* Top-left point */
+        100% 0%,     /* Top-right point */
+        calc(70% - 30px) 100%,  /* Adjust this point to control the slant angle */
+        0% 100%      /* Bottom-left point */
+    );
+
+    z-index: 500; /* Makes sure it is always at the top */
+}
+
+/* --- Hamburger Icon Styles (Desktop: Hidden) --- */
+.hamburger {
+    display: none; /* Hide by default on desktop */
+    cursor: pointer;
+    background: none;
+    border: none;
+    padding: 0;
+    margin-right: 20px; /* Aligns hamburger with content edge */
+    z-index: 10; /* Ensures the button is clickable above the menu when open */
+}
+
+.bar {
+    display: block;
+    width: 25px;
+    height: 3px;
+    margin: 5px 0;
+    background-color: white;
+    transition: 0.4s;
+}
+
+/* --- Media Query for Mobile Screens (Max width 768px is standard for phones) --- */
+@media screen and (max-width: 800px /*Set here to prevent text wrapping on FAQ link*/) {
+    .hamburger {
+        display: block; /* Show hamburger icon on mobile */
+    }
+
+    /* Target the list container itself */
+    .navbar-list {
+        position: fixed;
+        right: -100%; /* Hide the menu off-screen initially */
+        top: 3.3rem; /* Position it right below the fixed navbar */
+        flex-direction: column; /* Stack links vertically */
+        background-color: #404040; /* Match your navbar background */
+        text-align: center;
+        transition: 0.3s ease-in-out;
+        box-shadow: 0 10px 27px rgba(0, 0, 0, 0.1);
+        height: auto; 
+        padding: 20px 0;
+        z-index: 5;
+        border-radius: 10px;
+    }
+
+    /* Class added by JavaScript when menu is open */
+    .navbar-list.active {
+        right: 0; /* Slide the menu into view */
+    }
+
+    /* Adjust individual list items for mobile view */
+    .navbar-list li {
+        margin: 15px 5px; /* Vertical spacing */
+        width: auto;
+        border-radius: 0;
+        background-color: transparent; /* Remove individual LI backgrounds for a cleaner list */
+        height: auto;
+        padding: 0; /* Remove padding that made items block-like on desktop */
+    }
+
+    .navbar-list li a {
+        padding: 10px; /* Make the link area large and clickable */
+        display: block;
+    }
+}
+
+.page-wrapper {
+    display: flex;
+    flex-direction: column;
+    background: linear-gradient(to bottom right, var(--background-color-grad1), var(--background-color-grad2));
+}
+
+#body { /* Appiles to main and footer */
+    display: flex; /* Ensures content inside body can grow */
+    flex-direction: column; /* Stacks main and footer vertically */
+    flex-grow: 1; /* This makes the #body container grow to fill available space */
+    max-width: 100vw;
+    margin-top: 100px;
+    padding-left: 20px;
+    padding: 20px;
+}
+
+/* Add a flex container to hold the welcomeBox and the right column */
+.main-content-row {
+    display: flex; /* Arranges children in a row */
+    padding: 4em;
+    padding-top: 2em;
+    gap: 2rem;
+}
+
+.left-content-column {
+    display: flex;
+    flex-direction: column;
+    flex-grow: 1;
+    gap: 30px; /* Add a gap between the welcome box and the images */
+}
+
+/* Style for the main welcome box */
+.welcome-box {
+    /* Removed width: 75%; because flex-grow handles sizing */
+    height: fit-content;
+}
+
+.welcome {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    gap: 1rem;
+}
+
+.welcome-box img {
+    width: 100px;
+    height: 100px;
+    border-radius: 50%;
+}
+
+.welcome-box h1 {
+    margin-top: 5px;
+    margin-bottom: 5px;
+}
+
+.images {
+    padding: 10px;
+    width: 100%; /* Now takes 100% of the "left-content-column" */
+    box-sizing: border-box; /* Recommended with width 100% and padding */
+    height: fit-content;
+}
+
+.image1 {
+    display: flex;
+    align-items: center;
+    flex-direction: row;
+    gap: 20px;
+}
+
+.image1 img {
+    max-width: 100%; /* This will shrink the image on smaller screens */
+    height: auto; /* Maintains the image's aspect ratio */
+    box-sizing: border-box; /* Include padding in the width calculation */
+}
+
+.image1 p {
+   font-weight: 600;
+}
+
+.welcome-box h1{ 
+    color:var(--main-header-color);
+    font-size: 40px;
+}
+
+.right-column {
+    display: flex;
+    flex-direction: column;
+    width: 75%;
+    gap: 3rem;
+    min-width: 232px;
+    max-width: 500px;
+    margin-left: 1rem;
+    align-items: center;
+}
+
+/* Quick facts box (now within the right-column) */
+.quick-facts-box {
+    width: 100%; /* Spans the full width of its parent (.right-column) */
+    height: fit-content;
+}
+
+.quick-facts-box h1{
+    color:var(--main-header-color)
+}
+
+.quick-facts-box ul {
+    list-style-type: none;
+    padding-left: 0;
+    color: var(--main-text-color);
+}
+
+/* Container for the quick links */
+.links-container {
+    display: flex;
+    flex-direction: column;
+    gap: 1.5rem; /* Adjust spacing between links */
+    width: 100%;
+}
+
+/* Style for the individual quick links */
+.quick-link {
+    width: 100%;
+    height: 100px;
+}
+
+.quick-link p {
+    margin: 0;
+    text-align: center;
+}
+
+.links-container :hover {
+    background-color: var(--action-link-color);
+    color: var(--action-link-text-color-hover);
+}
+
+@media (max-width: 900px) { /* The breakpoint where the layout stacks */
+    .main-content-row {
+        flex-direction: column; /* Stack columns vertically */
+    }
+
+    .welcome-box {
+        order: 1;
+    }
+    .right-column {
+        width: 100%;
+        margin-left: 0;
+        max-width: none;
+        order: 2; /* Make the right-column appear first */
+    }
+
+    .images {
+        order: 3; /* Make the left-column appear second */
+    }
+}
