@@ -4,14 +4,14 @@
     --animation-timing: ease-out;
     --transition-property: all var(--animation-duration) var(--animation-timing);
 
-    --background-color-grad1: #0f0f0f; /* Near Black (Main background color base) */
-    --background-color-grad2: #1c1c1c; /* Deep Gray (End of background gradient) */
-    --particle-color-grad1: #0b8115a1;
-    --particle-color-grad2: #139c2a8f;
+    --background-color-grad1: #373b39;
+    --background-color-grad2: #161616;
+    --particle-color-grad1: #2c7186a1;
+    --particle-color-grad2: #498b7d8f;
     /* --- Global Text & Icon Colors --- */
     --navbar-icon-color: #f8fafc;        /* White/Off-white for contrast */
     --navbar-text-color-hover: #ffffff; /* Pure white for high contrast hover */
-    --main-text-color: #46da5e;         /* Keep general text light for readability */
+    --main-text-color: #000000;         /* Keep general text light for readability */
     /* --- Navbar colors (Solid background for stability and formality) --- */
     --fake-navbar-bg-color: #2c2c2c;    /* Solid very dark gray for sticky nav */
     --navbar-seperation-line: #555555;   /* A subtle divider line */
@@ -25,20 +25,20 @@
     /* --- Footer colors --- */
     --footer-bg-color: #2c2c2c;          /* Dark Gray for the footer */
     --footer-seperation-line: #555555;   /* Subtle gray line */
-    /*
-      --- Main Content Colors (Cards/Boxes) ---
-      Purple is the primary brand/content color, suggesting innovation and prestige in a tech context.
-      These are linear gradients for clean UI separation.
-    */
-    --main-element-box-bg-color-grad1: #ff0000c2; /* Top Left*/
-    --main-element-box-bg-color-grad2: #ff0000aa; /* Bottom Right*/
-    --primary-accent-color: #0b5f19;
-    --secondary-accent-color: #299414;
+    
+    --main-element-box-bg-color-grad1: #2773e4d8; /* Top Left*/
+    --main-element-box-bg-color-grad2: #364a68d8; /* Bottom Right*/
+    --primary-accent-color: #2e4732;
+    --secondary-accent-color: #99aa96;
     --action-link-color: #fab41d;
     --action-link-text-color-hover: #222020; /* NEEDS TO CONTRAST AGANST "--action-link-color" */
     /* --- Settings page styles --- */
     --settings-dropdown-menu-bg-color: var(--main-element-box-bg-color-grad1); /* Matches main box style */
     --settings-dropdown-menu-hover-option-color: #9370DB33; /* Purple with opacity for hover effect */
+}
+
+a {
+    color:#131313;
 }
 
 #firstVisitPopup {
